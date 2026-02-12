@@ -25,7 +25,7 @@ import {
 
 import '@mdxeditor/editor/style.css'
 import './MarkdownEditor.css';
-
+import { useState } from 'react';
 interface MarkdownEditorProps {
     headline: string;
   markdown: string;
@@ -37,11 +37,20 @@ export default function MarkdownEditor({
   markdown = '',
   editorRef,
   headline,
+  onChange,
 }: MarkdownEditorProps) {
+    const [inputValue, setInputValue] = useState(headline || "");
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue = e.target.value;
+        setInputValue(newValue);
+        if (onChange) {
+            onChange(newValue);
+        }
+    };
     return (
         <div>
             <form>
-                <input value={headline} placeholder="Enter headline" className="headline-input"/>
+                <input onChange={handleChange} value={inputValue} placeholder="Enter headline" className="headline-input"/>
                 <MDXEditor
                     onChange={(e) => console.log(e)}
                     ref={editorRef}
