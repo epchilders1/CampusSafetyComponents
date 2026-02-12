@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import "./HeroImageEditor.css";
 import { Image, Pencil } from "lucide-react";
 import { Toaster, toast } from "react-hot-toast";

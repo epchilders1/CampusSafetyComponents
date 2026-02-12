@@ -15,7 +15,8 @@ export default function Navbar(){
         {id: 3, name: "Documents", icon: <FileText/>},
         {id: 4, name: "Safety Contacts", icon: <Contact/>},
         {id: 5, name: "Campus Alerts", icon: <TriangleAlert/>},
-        {id: 6, name: "Users", icon: <Users/>}
+        {id: 6, name: "Safety Guidelines", icon: <BookOpenText/>},
+        {id: 7, name: "Users", icon: <Users/>}
     ]
 
 
