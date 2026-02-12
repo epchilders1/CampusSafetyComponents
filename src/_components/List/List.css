@@ -1,0 +1,115 @@
+.list-container{
+    display: flex;
+    flex-direction: column;
+}
+.list-container .input-container input{
+    width: calc(100% - 16px);
+    background-color: #2B2A32;
+    padding: 8px;
+    font-size: 1.25em;
+    border: none;
+    border-top-right-radius: 10px;
+}
+.list-container .input-container input:focus {
+  border-color: transparent;
+  outline: 2px transparent;
+}
+
+.list-container .input-container .search-icon{
+    left: 8px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    color: #6b7280;
+}
+
+.list-container .input-container .filter-icon{
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b7280;
+}
+
+.list-container .input-container .filter-icon:hover{
+    color: #ffffff;
+    transition: color 0.2s ease-in-out;
+}
+
+.list-container .input-container{
+    display: flex;
+    flex-direction: row;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #2B2A32;
+    border-bottom: 1px solid #6b7280;
+}
+
+.list-container .list-content{
+    background-color: #2B2A32;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 1.25em;
+}
+
+.list-container .list-content .no-results-container{
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    align-items: center;
+    color: #6b7280;
+}
+
+
+.list-container .list-item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #3E3E3E;
+    border-radius: 10px;
+    padding: 12px 0;
+}
+
+.list-container .list-item:hover{
+    background-color: #585858;
+    transition: background-color 0.1s ease-in-out;
+}
+
+.list-container .list-item .item-icon{
+    margin-left: 12px;
+    background-color: #6b7280;
+    padding: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+.list-container .list-item .item-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.list-container .list-item .item-text{
+    margin-left: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.list-container .list-item .item-title{
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: -5px;
+}
+
+.list-container .list-item .item-subtitle{
+    color: #B9B9B9;
+    margin: 0;
+    font-size: 0.9em;
+}

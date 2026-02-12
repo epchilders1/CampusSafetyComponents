@@ -1,0 +1,128 @@
+.navbar-container{
+    position: fixed;
+    height: 8vh;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background-color: #3E3E3E;
+    z-index: 9997;
+    display: flex; 
+    align-items: center;
+}
+
+.navbar-container .expand{
+    background-color: transparent;
+    border: none;
+}
+.navbar-container .expand svg{
+    width: 40px;
+    height: 40px;
+    stroke-width: 3;
+}
+.navbar-container .expand:hover{
+    opacity: .7;
+    transition: opacity 0.1s ease-in-out;
+}
+
+.navbar-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 5vw; 
+    gap: 12px;
+}
+
+.navbar-header .nav-logo{
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.navbar-header .title{
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.navbar-header .subtitle{
+    color: #B9B9B9;
+    margin: 0;
+}
+
+.sidebar-container{
+    height: 92vh;
+    bottom: 0;
+    position: fixed;
+    background-color: #353535;
+    z-index: 9998;
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start;
+    color: #B9B9B9;
+}
+.sidebar-container.sidebar-open {
+    left: 0;
+    animation: slideFromLeft 0.2s ease-in-out;
+}
+
+.sidebar-container.sidebar-closed {
+    left: -100vw;
+    animation: slideToLeft 0.2s ease-in-out;
+}
+
+@keyframes slideFromLeft{
+    0%{
+        left: -100vw;
+    }
+    100%{
+        left: 0;
+    }
+}
+@keyframes slideToLeft{
+    0%{
+        left: 0;
+    }
+    100%{
+        left: -100vw;
+    }
+}
+
+.nav-items-container{
+    font-size: 1.1rem;
+    font-weight: bold;
+    width: 100%;
+}
+
+.nav-items-container .nav-item{
+    display:flex;
+    flex-direction: row;
+    padding-left: 8px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 20px;
+    gap: 16px;
+
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+}
+.nav-items-container .nav-item svg{
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 50px;
+    height: 50px;
+}
+
+.nav-items-container .selected{
+    border-left: 6px solid #FF4646 !important;
+    background-color: #d9d9d923;
+    color:#FFFFFF
+}
+
+.nav-items-container .nav-item:hover{
+    background-color: #d9d9d923;
+}
