@@ -2,7 +2,7 @@
 import './List.css';
 import { useState, useEffect } from 'react';
 import {Search, SlidersHorizontal} from "lucide-react";
-import { Landmark, Frown } from 'lucide-react';
+import { Landmark, Frown, ArrowDownAZ, ArrowDownZA } from 'lucide-react';
 
 interface ListItem {
     id: string;
@@ -16,6 +16,22 @@ interface ListProps{
     onSelect?: (id: string) => void;
 }
 
+const FILTERS = [
+    {
+        id: 'sort-az',
+        label: 'Ascending',
+        icon: ArrowDownAZ,
+        apply: (items: ListItem[]) => [...items].sort((a, b) => a.title.localeCompare(b.title))
+    },
+    {
+        id: 'sort-za',
+        label: 'Descending',
+        icon: ArrowDownZA,
+        apply: (items: ListItem[]) => [...items].sort((a, b) => b.title.localeCompare(a.title))
+    },
+
+] as const;
+
 export default function List(props: ListProps) {
     const {
         items = [],
@@ -23,17 +39,31 @@ export default function List(props: ListProps) {
     } = props;
 
     const [searchTerm, setSearchTerm] = useState("");
+    const [filterDropdown, setFilterDropDown] = useState(false);
+    const [activeFilter, setActiveFilter] = useState<string | null>(null);
     const [filteredItems, setFilteredItems] = useState<ListItem[]>(items);
 
-    useEffect(()=>{
+    useEffect(() => {
         const lowerSearchTerm = searchTerm.toLowerCase();
-        const newFilteredItems = items.filter(item => 
+        let newFilteredItems = items.filter(item => 
             item.title.toLowerCase().includes(lowerSearchTerm) ||
             (item.subtitle && item.subtitle.toLowerCase().includes(lowerSearchTerm))
         );
-        setFilteredItems(newFilteredItems);
 
-    },[searchTerm, items]);
+        if (activeFilter) {
+            const filter = FILTERS.find(f => f.id === activeFilter);
+            if (filter) {
+                newFilteredItems = filter.apply(newFilteredItems);
+            }
+        }
+
+        setFilteredItems(newFilteredItems);
+    }, [searchTerm, items, activeFilter]);
+
+    const handleFilterClick = (filterId: string) => {
+        setActiveFilter(activeFilter === filterId ? null : filterId);
+        setFilterDropDown(false);
+    };
 
     return (
         <div className="list-container">
@@ -44,18 +74,38 @@ export default function List(props: ListProps) {
                     placeholder="Search..."
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <SlidersHorizontal className="filter-icon"/>
+                <button
+                    onClick={() => setFilterDropDown(!filterDropdown)}
+                    className="filter-icon"
+                >
+                    <SlidersHorizontal/>
+                </button>
             </div>
-            <div className ="list-content">
+            {filterDropdown && (
+                <div className="filter-container">
+                    {FILTERS.map(filter => {
+                        const Icon = filter.icon;
+                        return (
+                            <button
+                                key={filter.id}
+                                className={`filter-option ${activeFilter === filter.id ? 'active' : ''}`}
+                                onClick={() => handleFilterClick(filter.id)}
+                            >
+                                <Icon size={20} />
+                                <span>{filter.label}</span>
+                            </button>
+                        );
+                    })}
+                </div>
+            )}
+            <div className="list-content">
                 {filteredItems.map((item) => (
                     <a
                         key={item.id} 
                         className="list-item"
                         onClick={() => onSelect(item.id)}
-                        >
+                    >
                         <div className="item-icon">
-                            {/* Temporary example landmark image, normally this would be an img tag using the item's img property */}
-                            {/* {item.img && <img src={item.img} alt={item.title}/>} */}
                             <Landmark/>
                         </div>
                         <div className="item-text">
