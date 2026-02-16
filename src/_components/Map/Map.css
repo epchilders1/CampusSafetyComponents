@@ -1,0 +1,111 @@
+:root {
+  --bg-dark: #1E1E26;
+  --sidebar-dark: #25252F;
+  --input-bg: #3E3E3E;
+  --text-main: #FFFFFF;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: sans-serif;
+}
+
+.page-wrapper {
+  display: flex;
+  height: 80vh;
+  width: 100vw;
+  gap: 20px;
+}
+
+.area-list-container {
+  width: 25%;
+  background-color: var(--sidebar-dark);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+}
+
+/* Right Side Container */
+.main-content {
+  flex: 1; /* Takes up remaining 75% */
+  display: flex;
+  flex-direction: column;
+  padding: 40px; /* Gives that "floating" map look */
+  gap: 30px;
+  background-color: var(--sidebar-dark);
+  border-radius: 10px;
+}
+
+.map-view-container {
+  width: 100%;
+  height: 60vh; /* Adjust height based on preference */
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden; /* Clips the Google Map corners */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+/* Input Section Styling */
+.input-section {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+
+.map-overlay-controls {
+  position: absolute;
+  top: 10%;
+  right: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 10;
+}
+
+.area-options-container {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.area-options-container.open {
+  background-color: #8C8A8A;
+}
+
+.area-options-dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  animation: dropdownFade 0.2s ease;
+}
+
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.map-button {
+  background: #3E3E3E;
+  border: none;
+  padding: 9px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.map-button:hover {
+  background: #2B2A32;
+}

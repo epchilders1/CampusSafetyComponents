@@ -16,3 +16,8 @@
   flex-direction: column;
   gap: 16px;
 }
+
+.map-container{
+  padding: 10px;
+  text-align: center;
+}

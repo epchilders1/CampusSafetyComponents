@@ -9,12 +9,14 @@ import Modal from './_components/Modal/Modal'
 import InputDropDown from './_components/InputDropdown/InputDropdown';
 import TextArea from './_components/TextArea/TextArea';
 import Navbar from './_components/Navbar/Navbar';
+import Map from './_components/Map/Map';
 import {Toaster, toast} from "react-hot-toast"
 
 import './App.css'
 
 export default function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const sampleListItems = [
     {id: "1", title: "Example Hall 1", subtitle: "Landmark"},
     {id: "2", title: "Example Hall 2", subtitle: "Landmark"},
@@ -108,6 +110,10 @@ export default function App() {
               <h2>Text Area Component</h2> 
               <TextArea label="Description" placeHolder="Some text here..." lockXExpansion={true}/>
         </div>
+      </div>
+      <div className="map-container">
+          <h2>Map Component</h2>
+          <Map/>
       </div>
     </div>
   );
