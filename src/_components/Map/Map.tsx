@@ -17,6 +17,8 @@ export interface MapShape {
   title: string;
   path: Array<{ lat: number; lng: number }>;
   color?: string;
+  radius?: number;
+  type?: string;
 }
  const INITIAL_SHAPES: MapShape[] = [
         {
@@ -63,25 +65,48 @@ export default function MapComponent() {
                 }
             );
     };
-   const handleShapeComplete = (event: any) => {
+    const handleShapeComplete = (event: any) => {
+        let coords: Array<{ lat: number; lng: number }> = [];
+        let radius: number | undefined;
+
         if (event.type === "polygon") {
             const path = event.overlay.getPath();
-            const coords: Array<{ lat: number; lng: number }> = [];
-
             for (let i = 0; i < path.getLength(); i++) {
-                coords.push({ lat: path.getAt(i).lat(), lng: path.getAt(i).lng() });
+            coords.push({ lat: path.getAt(i).lat(), lng: path.getAt(i).lng() });
             }
-
-            const newShape: MapShape = {
-                id: crypto.randomUUID(),
-                title: "New Area",
-                path: coords,
-                color: "#8C8A8A"
-            };
-
-            setShapes(prev => [...prev, newShape]);
-            handleShapeSelect(newShape.id);
+        } 
+        
+        else if (event.type === "rectangle") {
+            const bounds = event.overlay.getBounds();
+            const ne = bounds.getNorthEast();
+            const sw = bounds.getSouthWest();
+            
+            coords = [
+            { lat: ne.lat(), lng: ne.lng() },
+            { lat: ne.lat(), lng: sw.lng() },
+            { lat: sw.lat(), lng: sw.lng() },
+            { lat: sw.lat(), lng: ne.lng() }
+            ];
+        } 
+        
+        else if (event.type === "circle") {
+            const center = event.overlay.getCenter();
+            radius = event.overlay.getRadius();
+            coords = [{ lat: center.lat(), lng: center.lng() }];
         }
+
+        const newShape: MapShape = {
+            id: crypto.randomUUID(),
+            title: `New Circle`,
+            path: coords,
+            radius: radius,
+            type: event.type,
+            color: "#8C8A8A"
+        };
+
+
+        setShapes(prev => [...prev, newShape]);
+        handleShapeSelect(newShape.id);
     };
 
     const handleShapeSelect = (id: string) =>{

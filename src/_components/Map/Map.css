@@ -15,12 +15,14 @@ body {
 .page-wrapper {
   display: flex;
   height: 80vh;
-  width: 100vw;
+  width: 95vw;
   gap: 20px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .area-list-container {
-  width: 25%;
+  width: 20%;
   background-color: var(--sidebar-dark);
   padding: 20px;
   display: flex;
@@ -28,12 +30,11 @@ body {
   border-radius: 10px;
 }
 
-/* Right Side Container */
 .main-content {
-  flex: 1; /* Takes up remaining 75% */
+  flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 40px; /* Gives that "floating" map look */
+  padding: 40px;
   gap: 30px;
   background-color: var(--sidebar-dark);
   border-radius: 10px;
@@ -41,18 +42,18 @@ body {
 
 .map-view-container {
   width: 100%;
-  height: 60vh; /* Adjust height based on preference */
+  height: 60vh; 
   position: relative;
   border-radius: 15px;
-  overflow: hidden; /* Clips the Google Map corners */
+  overflow: hidden;
   box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 
-/* Input Section Styling */
 .input-section {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  padding-right: 25px;
 }
 
 
