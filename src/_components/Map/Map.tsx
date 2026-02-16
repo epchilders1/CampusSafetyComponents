@@ -133,15 +133,16 @@ return (
             </div>
             </div>
         </div>
-
-      <div className="input-section">
-        <div className="input-group">
-            <Input id="display-name" label="Display Name" value={selectedMapShape?.title}/>
+        {selectedMapShape && (
+        <div className="input-section">
+            <div className="input-group">
+                <Input id="display-name" label="Display Name" value={selectedMapShape?.title}/>
+            </div>
+            <div className="input-group">
+                <Input id="display-name" label="Shape Color" placeHolder='#FFFFFF' value={selectedMapShape?.color}/>
+            </div>
         </div>
-        <div className="input-group">
-            <Input id="display-name" label="Shape Color" placeHolder='#FFFFFF' value={selectedMapShape?.color}/>
-        </div>
-      </div>
+        )}
     </div>
   </div>
 );

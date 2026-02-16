@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useMap } from '@vis.gl/react-google-maps';
-import type { MapShape } from './Map'; // Adjust import based on your filename
+import type { MapShape } from './Map';
 
 export function PanHandler({ selectedShape }: { selectedShape: MapShape | undefined }) {
   const map = useMap();
