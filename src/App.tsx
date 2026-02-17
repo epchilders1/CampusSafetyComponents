@@ -11,6 +11,7 @@ import TextArea from './_components/TextArea/TextArea';
 import Navbar from './_components/Navbar/Navbar';
 import Map from './_components/Map/Map';
 import {Toaster, toast} from "react-hot-toast"
+import type { MapShape } from './_components/Map/Map';
 
 import './App.css'
 
@@ -29,6 +30,30 @@ export default function App() {
     {id: "1", value: 1},
     {id: "2", value: 2}
   ]
+
+  const INITIAL_SHAPES: MapShape[] = [
+      {
+          id: "1",
+          title: "Red Zone",
+          color: "#E53D3D",
+          path: [
+              { lat: 33.2108, lng: -87.5661 },
+              { lat: 33.2112, lng: -87.5655 },
+              { lat: 33.2105, lng: -87.5650 },
+              { lat: 33.2102, lng: -87.5658 },
+          ]
+      },
+      {
+          id: "2",
+          title: "Blue Zone",
+          color: "#3D85E5",
+          path: [
+              { lat: 33.2120, lng: -87.5600 },
+              { lat: 33.2125, lng: -87.5590 },
+              { lat: 33.2115, lng: -87.5585 },
+          ]
+      }
+  ];
 
   const handleSaveHeroImage = async (file: File | null) => {
     try{
@@ -113,7 +138,7 @@ export default function App() {
       </div>
       <div className="map-container">
           <h2>Map Component</h2>
-          <Map/>
+          <Map areas={INITIAL_SHAPES} type ="area"/>
       </div>
     </div>
   );

@@ -78,7 +78,7 @@ body {
 
 .map-overlay-controls {
   position: absolute;
-  top: 10%;
+  top: 15%;
   right: 5px;
   display: flex;
   flex-direction: column;
