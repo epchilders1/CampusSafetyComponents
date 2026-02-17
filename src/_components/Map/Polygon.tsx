@@ -12,21 +12,21 @@ export const Polygon = (props: PolygonProps) => {
   useEffect(() => {
     if (!map) return;
 
-    // Initialize the native Google Maps Polygon
     polygonRef.current = new google.maps.Polygon({
       ...props,
       paths: props.paths,
     });
 
     polygonRef.current.setMap(map);
-
-    // Clean up when the component unmounts
+    if (polygonRef.current) {
+        polygonRef.current.setOptions({ strokeColor: props.strokeColor, fillColor: props.fillColor });
+    }
     return () => {
       if (polygonRef.current) {
         polygonRef.current.setMap(null);
       }
     };
-  }, [map, props.paths, props.strokeColor, props.fillColor]);
+  }, [map, props.paths, props.strokeColor, props.fillColor,]);
 
-  return null; // This component doesn't render DOM elements
+  return null;
 };

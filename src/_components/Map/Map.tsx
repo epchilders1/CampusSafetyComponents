@@ -4,13 +4,14 @@ import {
   Map,
   AdvancedMarker,
 } from "@vis.gl/react-google-maps";
-import { useState } from 'react';
-import { Plus, PenTool, Square, Circle } from 'lucide-react';
+import { useState, useEffect, useMemo } from 'react';
+import { Plus, PenTool, Square, Circle, SaveIcon, Trash } from 'lucide-react';
 import DrawingManager from "./DrawingManager";
 import List from '../List/List';
 import Input from '../Input/Input';
 import { Polygon } from './Polygon';
 import {PanHandler} from './PanHandler'
+import Button from '../Button/Button';
 
 export interface MapShape {
   id: string;
@@ -50,7 +51,14 @@ export default function MapComponent() {
 
     const [drawingMode, setDrawingMode] = useState("");
     const [shapes, setShapes] = useState<MapShape[]>(INITIAL_SHAPES);
-    const [selectedMapShape, setSelectedMapShape] = useState<MapShape>();
+    const [localShapes, setLocalShapes] = useState<MapShape[]>(INITIAL_SHAPES);
+    
+    const [hasChanges, setHasChanges] = useState(false);
+    const [selectedShapeId, setSelectedShapeId] = useState<string>();
+    const selectedMapShape = useMemo(
+    () => localShapes.find(s => s.id === selectedShapeId),
+    [localShapes, selectedShapeId]
+    );
 
     const handleMapClick = (event: any) => {
         console.log(event)
@@ -97,7 +105,7 @@ export default function MapComponent() {
 
         const newShape: MapShape = {
             id: crypto.randomUUID(),
-            title: `New Circle`,
+            title: `New ${event.type}`,
             path: coords,
             radius: radius,
             type: event.type,
@@ -105,13 +113,38 @@ export default function MapComponent() {
         };
 
 
-        setShapes(prev => [...prev, newShape]);
-        handleShapeSelect(newShape.id);
+        setLocalShapes(prev => [...prev, newShape]);
+        setSelectedShapeId(newShape.id);
+        setDrawingMode("");
     };
 
     const handleShapeSelect = (id: string) =>{
-        setSelectedMapShape(shapes.find((shape)=>shape.id == id))
+        setSelectedShapeId(id)
     }
+
+    useEffect(() => {
+        console.log("shapes:", JSON.stringify(shapes));
+        console.log("localShapes:", JSON.stringify(localShapes));
+        const isDifferent = JSON.stringify(shapes) !== JSON.stringify(localShapes);
+        console.log("isDifferent:", isDifferent);
+        setHasChanges(isDifferent);
+    }, [shapes, localShapes]);
+
+    const updateLocalShape = (id: string, field: keyof MapShape, value: string) => {
+        setLocalShapes(prev => prev.map(shape => 
+            shape.id === id ? { ...shape, [field]: value } : shape
+        ));
+    };
+    const handleSaveChanges = () => {
+        setShapes([...localShapes]);
+        setSelectedShapeId(selectedMapShape?.id);
+        setHasChanges(false);
+    };
+
+    const handleDiscardChanges = () => {
+        setLocalShapes([...shapes]);
+        setHasChanges(false);
+    };
 
 return (
   <div className="page-wrapper">
@@ -129,9 +162,9 @@ return (
             onClick={handleMapClick}
           >
             <PanHandler selectedShape={selectedMapShape} />
-            {shapes.map((s) => (
+            {localShapes.map((s) => (
                 <Polygon
-                    key={s.id}
+                    key={`${s.id}-${s.title}-${s.color}`}
                     paths={s.path}
                     strokeColor={s.color}
                     fillColor={s.color}
@@ -161,12 +194,39 @@ return (
         {selectedMapShape && (
         <div className="input-section">
             <div className="input-group">
-                <Input id="display-name" label="Display Name" value={selectedMapShape?.title}/>
+                <Input 
+                    id="display-name" 
+                    label="Display Name" 
+                    value={localShapes.find(s => s.id === selectedMapShape?.id)?.title || ""}
+                    onChange={(e: any) => updateLocalShape(selectedMapShape!.id, 'title', e)}
+                />
             </div>
             <div className="input-group">
-                <Input id="display-name" label="Shape Color" placeHolder='#FFFFFF' value={selectedMapShape?.color}/>
+                <Input 
+                    id="shape-color" 
+                    label="Shape Color" 
+                    type="color"
+                    value={localShapes.find(s => s.id === selectedMapShape?.id)?.color || ""}
+                    onChange={(e: any) => updateLocalShape(selectedMapShape!.id, 'color', e)}
+                />
             </div>
         </div>
+        )}
+        {hasChanges && (
+            <div className="save-section">
+                    <Button variant='red' rounded={true} size="small" onClick={handleDiscardChanges}>
+                        <div className="save-button">
+                            <Trash/>
+                            <p>Discard Changes</p>
+                        </div>
+                    </Button>
+                    <Button variant='blue' rounded={true} size="small" onClick={handleSaveChanges}>
+                        <div className="save-button">
+                                <SaveIcon/>
+                                <p>Save Changes</p>
+                        </div>
+                    </Button>
+            </div>
         )}
     </div>
   </div>
