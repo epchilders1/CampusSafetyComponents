@@ -5,7 +5,8 @@ import {
   AdvancedMarker,
 } from "@vis.gl/react-google-maps";
 import { useState, useEffect, useMemo } from 'react';
-import { Plus, PenTool, Square, Circle, SaveIcon, Trash, MapPin, Map as MapIcon } from 'lucide-react';
+import { Plus, PenTool, Square, SaveIcon, Trash } from 'lucide-react';
+// import {Circle} from 'lucide-react';
 import DrawingManager from "./DrawingManager";
 import List from '../List/List';
 import Input from '../Input/Input';
@@ -36,7 +37,6 @@ export default function MapComponent(props:MapProps) {
         areas = [],
         type = "pin"
     } = props;
-    const [mapMode, setMapMode] = useState<MapMode>(type);
 
     const [pin, setPin] = useState<{ lat: number; lng: number }>();
 
@@ -52,7 +52,7 @@ export default function MapComponent(props:MapProps) {
     );
 
     const handleMapClick = (event: any) => {
-        if (mapMode !== "pin") return;
+        if (type !== "pin") return;
         const latLng = event.detail.latLng;
         if (!latLng) return;
         setPin({ lat: latLng.lat, lng: latLng.lng });
@@ -128,7 +128,7 @@ export default function MapComponent(props:MapProps) {
 
     return (
         <div className="page-wrapper">
-            {mapMode === "area" && (
+            {type === "area" && (
                 <div className="area-list-container">
                     <List items={localShapes} onSelect={handleShapeSelect} />
                 </div>
@@ -153,17 +153,17 @@ export default function MapComponent(props:MapProps) {
                                     fillOpacity={0.4}
                                 />
                             ))}
-                            {mapMode === "pin" && (
+                            {type === "pin" && (
                                 <AdvancedMarker key="pin" position={pin} />
                             )}
 
-                            {mapMode === "area" && (
+                            {type === "area" && (
                                 <DrawingManager mode={drawingMode} onShapeComplete={handleShapeComplete} />
                             )}
                         </Map>
                     </APIProvider>
 
-                    {mapMode === "area" && (
+                    {type === "area" && (
                         <div className="map-overlay-controls">
                             <div className={openAreaOptions ? "area-options-container open" : "area-options-container"}>
                                 <button className="map-button" onClick={() => setOpenAreaOptions(!openAreaOptions)}>
@@ -181,7 +181,7 @@ export default function MapComponent(props:MapProps) {
                     )}
                 </div>
 
-                {mapMode === "area" && selectedMapShape && (
+                {type === "area" && selectedMapShape && (
                     <div className="input-section">
                         <div className="input-group">
                             <Input
@@ -203,7 +203,7 @@ export default function MapComponent(props:MapProps) {
                     </div>
                 )}
 
-                {mapMode === "area" && hasChanges && (
+                {type === "area" && hasChanges && (
                     <div className="save-section">
                         <Button variant='red' rounded={true} size="small" onClick={handleDiscardChanges}>
                             <div className="save-button">
