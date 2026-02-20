@@ -61,7 +61,7 @@ export default function Input(props: InputProps) {
                     placeholder={placeHolder}
                     className={isCheckbox ? "input-checkbox" : "input-field peer"}
                     value={type === "checkbox" ? undefined : inputValue}
-                    checked={type === "checkbox" ? inputValue === "true" : undefined}
+                    checked={type === "checkbox" ? inputValue : undefined}
                     onChange={handleChange}
                     type={type}
                     autoFocus={autoFocus}

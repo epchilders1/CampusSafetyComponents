@@ -56,6 +56,7 @@
   height: 1.25rem;
   cursor: pointer;
   accent-color: #3b82f6;
+  background-color: white;
 }
 
 .input-checkbox:focus {

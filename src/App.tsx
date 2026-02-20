@@ -12,6 +12,7 @@ import Navbar from './_components/Navbar/Navbar';
 import Map from './_components/Map/Map';
 import {Toaster, toast} from "react-hot-toast"
 import type { MapShape } from './_components/Map/Map';
+import CampusNow from './pages/CampusNow/CampusNow';
 
 import './App.css'
 
@@ -71,6 +72,12 @@ export default function App() {
     toast.success(`Selected list item with id: ${id}`)
   }
 
+  const campusNowMarkdownInfo = {
+    headline:"Example Headline",
+    markdown: "- Campus Now Page!!!",
+    onChange: (newMarkdown: string) => console.log("New markdown:", newMarkdown)
+  }
+
   return (
     <div>
       <Navbar/>
@@ -86,7 +93,7 @@ export default function App() {
         </div>
         <div className="markdown-editor-container">
           <h2>Markdown Editor</h2>
-          <MarkdownEditor headline="Welcome to Campus Safety" markdown={"# Hello World\n\nThis is a markdown editor."} />
+          <MarkdownEditor onChange = {(newMarkdown: string) => console.log("New markdown:", newMarkdown)} headline="Welcome to Campus Safety" markdown={"# Hello World\n\nThis is a markdown editor."} />
         </div>
         <div className="button-container">
           <h2>Button Component</h2>
@@ -139,6 +146,9 @@ export default function App() {
       <div className="map-container">
           <h2>Map Component</h2>
           <Map areas={INITIAL_SHAPES} type ="area"/>
+      </div>
+      <div>
+        <CampusNow markdownInfo={campusNowMarkdownInfo}/>
       </div>
     </div>
   );

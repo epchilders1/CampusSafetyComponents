@@ -5,7 +5,7 @@ import {
   AdvancedMarker,
 } from "@vis.gl/react-google-maps";
 import { useState, useEffect, useMemo } from 'react';
-import { Plus, PenTool, Square, SaveIcon, Trash } from 'lucide-react';
+import { SaveIcon, Trash } from 'lucide-react';
 // import {Circle} from 'lucide-react';
 import DrawingManager from "./DrawingManager";
 import List from '../List/List';
@@ -13,6 +13,8 @@ import Input from '../Input/Input';
 import { Polygon } from './Polygon';
 import { PanHandler } from './PanHandler'
 import Button from '../Button/Button';
+import {toast,Toaster} from 'react-hot-toast'
+import MapControls from './MapControls';
 
 export interface MapShape {
   id: string;
@@ -112,6 +114,7 @@ export default function MapComponent(props:MapProps) {
         const deepCopy = JSON.parse(JSON.stringify(localShapes));
         setShapes(deepCopy);
         setHasChanges(false);
+        toast.success("Campus Areas saved successfully!");
     };
 
     const handleDiscardChanges = () => {
@@ -126,8 +129,25 @@ export default function MapComponent(props:MapProps) {
         setHasChanges(isDifferent);
     }, [shapes, localShapes]);
 
+    useEffect(() => {
+        const handleFullscreenChange = () => {
+            const fullscreenElement = document.fullscreenElement;
+            const controls = document.querySelector('.map-overlay-controls');
+            
+            if (fullscreenElement && controls) {
+                fullscreenElement.appendChild(controls);
+            } else if (controls) {
+                document.querySelector('.map-view-container')?.appendChild(controls);
+            }
+        };
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    }, []);
+
     return (
         <div className="page-wrapper">
+            <Toaster/>
             {type === "area" && (
                 <div className="area-list-container">
                     <List items={localShapes} onSelect={handleShapeSelect} />
@@ -164,20 +184,11 @@ export default function MapComponent(props:MapProps) {
                     </APIProvider>
 
                     {type === "area" && (
-                        <div className="map-overlay-controls">
-                            <div className={openAreaOptions ? "area-options-container open" : "area-options-container"}>
-                                <button className="map-button" onClick={() => setOpenAreaOptions(!openAreaOptions)}>
-                                    <Plus />
-                                </button>
-                                {openAreaOptions && (
-                                    <div className="area-options-dropdown">
-                                        <button className="map-button" onClick={() => setDrawingMode("polygon")}><PenTool /></button>
-                                        <button className="map-button" onClick={() => setDrawingMode("rectangle")}><Square /></button>
-                                        {/* <button className="map-button" onClick={() => setDrawingMode("circle")}><Circle /></button> */}
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                        <MapControls 
+                            openAreaOptions={openAreaOptions}
+                            setOpenAreaOptions={setOpenAreaOptions}
+                            setDrawingMode={setDrawingMode}
+                        />
                     )}
                 </div>
 

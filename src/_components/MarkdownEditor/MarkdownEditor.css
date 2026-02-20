@@ -20,8 +20,8 @@
 }
 
 .mdxeditor-root-contenteditable {
-  padding: 16px;
   min-height: 350px;
+  text-align: left;
 }
 
 .mdxeditor-toolbar {
