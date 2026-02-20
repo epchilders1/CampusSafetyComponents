@@ -4,7 +4,7 @@ import type { MarkdownEditorProps } from '../../_components/MarkdownEditor/Markd
 import Input from '../../_components/Input/Input';
 import InputDropDown from '../../_components/InputDropdown/InputDropdown';
 import Button from '../../_components/Button/Button';
-import {useState, useEffect, useRef, useCallback, useMemo, use} from 'react';
+import {useState, useEffect, useRef, useCallback} from 'react';
 import type { MDXEditorMethods } from '@mdxeditor/editor';
 import DOMPurify from 'dompurify';
 import { SaveIcon, Trash } from 'lucide-react';
@@ -18,7 +18,7 @@ const STORAGE_KEY = "campus_now";
 
 export default function CampusNow(props: CampusNowProps){
     const {markdownInfo} = props;
-    
+
     const editorRef = useRef<MDXEditorMethods>(null);
     const debounceTimerRef = useRef<NodeJS.Timeout>(null);
     
