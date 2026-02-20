@@ -10,20 +10,24 @@ import DOMPurify from 'dompurify';
 import { SaveIcon, Trash } from 'lucide-react';
 import {Toaster, toast} from "react-hot-toast"
 interface CampusNowProps{
-    markdownInfo:MarkdownEditorProps;
 
+    markdownInfo:MarkdownEditorProps;
+    forecastOptions:{
+        showTodaysForecast: boolean;
+        show7DayForecast: boolean;
+    }
 }
 
 const STORAGE_KEY = "campus_now";
 
 export default function CampusNow(props: CampusNowProps){
-    const {markdownInfo} = props;
+    const {markdownInfo, forecastOptions} = props;
 
     const editorRef = useRef<MDXEditorMethods>(null);
     const debounceTimerRef = useRef<NodeJS.Timeout>(null);
     
-    const [showTodaysForecast, setShowTodaysForecast] = useState(false);
-    const [show7DayForecast, setShow7DayForecast] = useState(false);
+    const [showTodaysForecast, setShowTodaysForecast] = useState(forecastOptions.showTodaysForecast);
+    const [show7DayForecast, setShow7DayForecast] = useState(forecastOptions.show7DayForecast);
     const [htmlContent, setHtmlContent] = useState<string | null>(null);
     const [hasChanges, setHasChanges] = useState(false);
 
@@ -119,10 +123,12 @@ export default function CampusNow(props: CampusNowProps){
         
         const isDifferent = 
             headline !== markdownInfo.headline || 
-            normalizedCurrent !== normalizedOriginal;
+            normalizedCurrent !== normalizedOriginal ||
+            showTodaysForecast !== forecastOptions.showTodaysForecast ||
+            show7DayForecast !== forecastOptions.show7DayForecast;
         
         setHasChanges(isDifferent);
-    }, [headline, markdown, markdownInfo]);
+    }, [headline, markdown, markdownInfo, forecastOptions, showTodaysForecast, show7DayForecast]);
 
     return(
         <div className="campus-now-container">

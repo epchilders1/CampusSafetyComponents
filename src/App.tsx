@@ -78,6 +78,11 @@ export default function App() {
     onChange: (newMarkdown: string) => console.log("New markdown:", newMarkdown)
   }
 
+  const forecastOptions = {
+    showTodaysForecast: true,
+    show7DayForecast: true
+  }
+
   return (
     <div>
       <Navbar/>
@@ -148,7 +153,7 @@ export default function App() {
           <Map areas={INITIAL_SHAPES} type ="area"/>
       </div>
       <div>
-        <CampusNow markdownInfo={campusNowMarkdownInfo}/>
+        <CampusNow markdownInfo={campusNowMarkdownInfo} forecastOptions={forecastOptions}/>
       </div>
     </div>
   );
