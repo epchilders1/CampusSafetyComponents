@@ -2,7 +2,7 @@ import './SafetyGuidelines.css';
 import {Toaster, toast} from "react-hot-toast"
 import MarkdownEditor from '../../_components/MarkdownEditor/MarkdownEditor';
 import type { MarkdownEditorProps } from '../../_components/MarkdownEditor/MarkdownEditor';
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import type { MDXEditorMethods } from '@mdxeditor/editor';
 import DOMPurify from 'dompurify';
 import HeroImageEditor from '../../_components/HeroImageEditor/HeroImageEditor';
@@ -22,7 +22,6 @@ export default function SafetyGuidelines(props:SafetyGuidelinesProps){
     const editorRef = useRef<MDXEditorMethods>(null);
     const debounceTimerRef = useRef<NodeJS.Timeout>(null);
     const [htmlContent, setHtmlContent] = useState<string | null>(null);
-    const [hasChanges, setHasChanges] = useState(false);
     const [heroImage, setHeroImage] = useState<string | null>(props.heroImage || null);
 
     const [headline, setHeadline] = useState(() => {
@@ -79,6 +78,7 @@ export default function SafetyGuidelines(props:SafetyGuidelinesProps){
 
     const handleSaveChanges = () => {
         localStorage.removeItem(STORAGE_KEY);
+        //call api to save changes
         toast.success("Changes saved successfully!");
     }
 
@@ -90,6 +90,7 @@ export default function SafetyGuidelines(props:SafetyGuidelinesProps){
             editorRef.current.setMarkdown(markdownInfo.markdown);
         }
         handleMarkdownChange(markdownInfo.markdown);
+        setHeroImage(props.heroImage || null);
         toast.success("Changes discarded successfully!");
     }
 
@@ -125,17 +126,16 @@ export default function SafetyGuidelines(props:SafetyGuidelinesProps){
         localStorage.setItem(STORAGE_KEY, JSON.stringify(draft));
     }, [headline, markdown]);
 
-    useEffect(() => {
+    const isDifferent = useMemo(() => {
         const normalizedCurrent = normalizeMarkdown(markdown);
         const normalizedOriginal = normalizeMarkdown(markdownInfo.markdown);
         
-        const isDifferent = 
+        return (
             headline !== markdownInfo.headline || 
             normalizedCurrent !== normalizedOriginal ||
-            heroImage !== props.heroImage;
-        
-        setHasChanges(isDifferent);
-    }, [headline, markdown, markdownInfo, heroImage]);
+            heroImage !== (props.heroImage || null)
+        );
+    }, [headline, markdown, markdownInfo, heroImage, props.heroImage]);
     return(
         <div className="safety-guidelines-container">
             <Toaster/>
@@ -168,7 +168,7 @@ export default function SafetyGuidelines(props:SafetyGuidelinesProps){
                         )}
                         </div>
                     </div>
-                                    {hasChanges && (
+                    {isDifferent && (
                     <div className="save-section">
                         <Button variant='red' rounded={true} size="small" onClick={handleDiscardChanges}>
                             <div className="save-button">

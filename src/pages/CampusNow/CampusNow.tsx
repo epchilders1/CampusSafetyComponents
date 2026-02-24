@@ -4,7 +4,7 @@ import type { MarkdownEditorProps } from '../../_components/MarkdownEditor/Markd
 import Input from '../../_components/Input/Input';
 import InputDropDown from '../../_components/InputDropdown/InputDropdown';
 import Button from '../../_components/Button/Button';
-import {useState, useEffect, useRef, useCallback} from 'react';
+import {useState, useEffect, useRef, useCallback, useMemo} from 'react';
 import type { MDXEditorMethods } from '@mdxeditor/editor';
 import DOMPurify from 'dompurify';
 import { SaveIcon, Trash } from 'lucide-react';
@@ -29,7 +29,6 @@ export default function CampusNow(props: CampusNowProps){
     const [showTodaysForecast, setShowTodaysForecast] = useState(forecastOptions.showTodaysForecast);
     const [show7DayForecast, setShow7DayForecast] = useState(forecastOptions.show7DayForecast);
     const [htmlContent, setHtmlContent] = useState<string | null>(null);
-    const [hasChanges, setHasChanges] = useState(false);
 
     const [headline, setHeadline] = useState(() => {
         const saved = localStorage.getItem(STORAGE_KEY);
@@ -122,17 +121,16 @@ export default function CampusNow(props: CampusNowProps){
         localStorage.setItem(STORAGE_KEY, JSON.stringify(draft));
     }, [headline, markdown]);
 
-    useEffect(() => {
+    const isDifferent = useMemo(() => {
         const normalizedCurrent = normalizeMarkdown(markdown);
         const normalizedOriginal = normalizeMarkdown(markdownInfo.markdown);
         
-        const isDifferent = 
+        return(
             headline !== markdownInfo.headline || 
             normalizedCurrent !== normalizedOriginal ||
             showTodaysForecast !== forecastOptions.showTodaysForecast ||
-            show7DayForecast !== forecastOptions.show7DayForecast;
-        
-        setHasChanges(isDifferent);
+            show7DayForecast !== forecastOptions.show7DayForecast
+        );
     }, [headline, markdown, markdownInfo, forecastOptions, showTodaysForecast, show7DayForecast]);
 
     return(
@@ -172,7 +170,7 @@ export default function CampusNow(props: CampusNowProps){
                                 </div>
                             </div>
                     </div>
-                    {hasChanges && (
+                    {isDifferent && (
                     <div className="save-section">
                         <Button variant='red' rounded={true} size="small" onClick={handleDiscardChanges}>
                             <div className="save-button">
