@@ -1,35 +1,29 @@
-import './CampusNow.css';
+import './SafetyGuidelines.css';
+import {Toaster, toast} from "react-hot-toast"
 import MarkdownEditor from '../../_components/MarkdownEditor/MarkdownEditor';
 import type { MarkdownEditorProps } from '../../_components/MarkdownEditor/MarkdownEditor';
-import Input from '../../_components/Input/Input';
-import InputDropDown from '../../_components/InputDropdown/InputDropdown';
-import Button from '../../_components/Button/Button';
-import {useState, useEffect, useRef, useCallback} from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import type { MDXEditorMethods } from '@mdxeditor/editor';
 import DOMPurify from 'dompurify';
+import HeroImageEditor from '../../_components/HeroImageEditor/HeroImageEditor';
+import Image from '../../_components/Image/Image';
+import Button from '../../_components/Button/Button';
 import { SaveIcon, Trash } from 'lucide-react';
-import {Toaster, toast} from "react-hot-toast"
-interface CampusNowProps{
 
-    markdownInfo:MarkdownEditorProps;
-    forecastOptions:{
-        showTodaysForecast: boolean;
-        show7DayForecast: boolean;
-    }
+interface SafetyGuidelinesProps {
+    markdownInfo: MarkdownEditorProps;
+    heroImage?: string;
 }
+const STORAGE_KEY = "safety_guidelines";
 
-const STORAGE_KEY = "campus_now";
 
-export default function CampusNow(props: CampusNowProps){
-    const {markdownInfo, forecastOptions} = props;
-
+export default function SafetyGuidelines(props:SafetyGuidelinesProps){
+    const {markdownInfo, } = props;
     const editorRef = useRef<MDXEditorMethods>(null);
     const debounceTimerRef = useRef<NodeJS.Timeout>(null);
-    
-    const [showTodaysForecast, setShowTodaysForecast] = useState(forecastOptions.showTodaysForecast);
-    const [show7DayForecast, setShow7DayForecast] = useState(forecastOptions.show7DayForecast);
     const [htmlContent, setHtmlContent] = useState<string | null>(null);
     const [hasChanges, setHasChanges] = useState(false);
+    const [heroImage, setHeroImage] = useState<string | null>(props.heroImage || null);
 
     const [headline, setHeadline] = useState(() => {
         const saved = localStorage.getItem(STORAGE_KEY);
@@ -49,10 +43,19 @@ export default function CampusNow(props: CampusNowProps){
         return markdownInfo.markdown || "";
     });
 
-    const sampleDropdownItems=[
-        {id: "1", value: 1},
-        {id: "2", value: 2}
-    ]
+        const handleMarkdownChange = useCallback((newMarkdown: string) => {
+    if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+    }
+    
+    debounceTimerRef.current = setTimeout(() => {
+            const html = getHTMLContent();
+            if (html) {
+                setHtmlContent(DOMPurify.sanitize(html));
+            }
+            setMarkdown(newMarkdown);
+        }, 300);
+    }, []);
     const getHTMLContent = () => {
         if (editorRef.current) {
             const markdown = editorRef.current.getContentEditableHTML();
@@ -64,20 +67,6 @@ export default function CampusNow(props: CampusNowProps){
             .replace(/^\* /gm, '- ') 
             .trim();
     };
-
-    const handleMarkdownChange = useCallback((newMarkdown: string) => {
-        if (debounceTimerRef.current) {
-            clearTimeout(debounceTimerRef.current);
-        }
-        
-        debounceTimerRef.current = setTimeout(() => {
-            const html = getHTMLContent();
-            if (html) {
-                setHtmlContent(DOMPurify.sanitize(html));
-            }
-            setMarkdown(newMarkdown);
-        }, 300);
-    }, []);
 
     const handleHeadlineChange = useCallback((newHeadline: string) => {
         if (debounceTimerRef.current) {
@@ -104,6 +93,20 @@ export default function CampusNow(props: CampusNowProps){
         toast.success("Changes discarded successfully!");
     }
 
+
+    const handleSaveHeroImage = async (file: File | null) => {
+        try{
+
+            // Some sort of procedure to save file to cloud storage, archive previous file etc.
+            setHeroImage(file ? URL.createObjectURL(file) : null);
+        }
+        catch(error){
+        if(error instanceof Error){
+            throw new Error(`Failed to save ${file?.name}. ${error.message}`);
+        }
+        }
+    };
+
     useEffect(() => {
         return () => {
             if (debounceTimerRef.current) {
@@ -129,22 +132,22 @@ export default function CampusNow(props: CampusNowProps){
         const isDifferent = 
             headline !== markdownInfo.headline || 
             normalizedCurrent !== normalizedOriginal ||
-            showTodaysForecast !== forecastOptions.showTodaysForecast ||
-            show7DayForecast !== forecastOptions.show7DayForecast;
+            heroImage !== props.heroImage;
         
         setHasChanges(isDifferent);
-    }, [headline, markdown, markdownInfo, forecastOptions, showTodaysForecast, show7DayForecast]);
-
+    }, [headline, markdown, markdownInfo, heroImage]);
     return(
-        <div className="campus-now-container">
+        <div className="safety-guidelines-container">
             <Toaster/>
-            <h1>Campus Now Editor</h1>
+            <h1>Safety Guidelines Page</h1>
             <div className="content">
                 <div className="input-section">
-                    <Input onChange={setShowTodaysForecast} value={showTodaysForecast} type="checkbox" label="Today's Forecast"/>
-                    <Input onChange={setShow7DayForecast} value={show7DayForecast} type="checkbox" label="7 Day Forecast"/>
-                    <InputDropDown label="Minimum Visible Notification Priority" includeNoneOption={true} options={sampleDropdownItems}/>
-                    <Input type="number" label="Maximum Visible Alerts"/>
+                    <div className="hero-image-editor-wrapper">
+                        <HeroImageEditor 
+                            currentImage={heroImage}
+                            saveImage={handleSaveHeroImage}
+                        />
+                    </div>
                     <MarkdownEditor 
                         editorRef={editorRef} 
                         headline={headline}
@@ -156,23 +159,16 @@ export default function CampusNow(props: CampusNowProps){
                 <div className="divider"></div>
                 <div className="preview-section">
                     <div className="preview-box">
-                            <div className="weather-container">
-                                {showTodaysForecast && (
-                                    <p>This is where today's forecast would go</p>
-                                )}
-                                {show7DayForecast &&(
-                                    <p>This is where the 7 day forecast would go</p>
-                                )}
-                                <h1>{headline}</h1>
-                                <div className="preview-separator"/>
-                                <div className="markdown-preview">
-                                {htmlContent && (
-                                    <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-                                )}
-                                </div>
-                            </div>
+                        <Image src={heroImage || undefined} alt="Hero Image" size={500}/>
+                        <h1>{headline}</h1>
+                        <div className="preview-separator"/>
+                        <div className="markdown-preview">
+                        {htmlContent && (
+                            <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+                        )}
+                        </div>
                     </div>
-                    {hasChanges && (
+                                    {hasChanges && (
                     <div className="save-section">
                         <Button variant='red' rounded={true} size="small" onClick={handleDiscardChanges}>
                             <div className="save-button">
@@ -187,9 +183,8 @@ export default function CampusNow(props: CampusNowProps){
                             </div>
                         </Button>
                     </div>
-                    )}
+                )}
                 </div>
-                
             </div>
         </div>
     );

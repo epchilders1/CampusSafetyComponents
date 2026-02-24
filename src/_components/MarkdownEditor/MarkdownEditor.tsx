@@ -1,29 +1,35 @@
-"use client"
+"use client";
+
+import "@mdxeditor/editor/style.css";
 import {
-  headingsPlugin,
-  listsPlugin,
-  quotePlugin,
-  thematicBreakPlugin,
-  markdownShortcutPlugin,
-  toolbarPlugin,
-  tablePlugin,
-  MDXEditor,
+    MDXEditor,
+    headingsPlugin,
+    listsPlugin,
+    quotePlugin,
+    thematicBreakPlugin,
+    markdownShortcutPlugin,
+    linkPlugin,
+    linkDialogPlugin,
+    codeBlockPlugin,
+    codeMirrorPlugin,
+    imagePlugin,
+    diffSourcePlugin,
+    toolbarPlugin,
+    BoldItalicUnderlineToggles,
+    UndoRedo,
+    BlockTypeSelect,
+    CreateLink,
+    ListsToggle,
+    InsertThematicBreak,
+    InsertImage,
+    Separator,
+    DiffSourceToggleWrapper,
+} from "@mdxeditor/editor";
+
+import {
   type MDXEditorMethods,
 } from '@mdxeditor/editor'
 
-import {
-    BlockTypeSelect,
-  BoldItalicUnderlineToggles,
-  StrikeThroughSupSubToggles,
-  UndoRedo,
-  CreateLink,
-  InsertTable,
-  ListsToggle,
-  InsertImage,
-  Separator
-} from '@mdxeditor/editor'
-
-import '@mdxeditor/editor/style.css'
 import './MarkdownEditor.css';
 import { useEffect, useState } from 'react';
 export interface MarkdownEditorProps {
@@ -54,37 +60,41 @@ export default function MarkdownEditor({
         setInputValue(headline);
     }, [headline]);
     return (
-        <div>
-            <form>
+        <div style={{ width: '100%' }}>
+            <form style={{ width: '100%' }}>
                 <input onChange={handleChange} value={inputValue} placeholder="Enter headline" className="headline-input"/>
                 <MDXEditor
-                    onChange={(e) => onChange(e)}
-                    ref={editorRef}
-                    markdown={markdown}
-                    plugins={[
-                        toolbarPlugin({
-                        toolbarContents: () => (
-                            <>
-                            <UndoRedo />
-                            <BoldItalicUnderlineToggles />
-                            <BlockTypeSelect />
-                            <StrikeThroughSupSubToggles />
-                            <Separator />
-                            <CreateLink />
-                            <InsertImage />
-                            <InsertTable />
-                            <ListsToggle />
-                            </>
-                        )
-                        }),
-                        headingsPlugin(), 
-                        listsPlugin(), 
-                        quotePlugin(), 
-                        thematicBreakPlugin(), 
-                        markdownShortcutPlugin(),
-                        tablePlugin()
-                    ]}
-                />
+                        className="markdown-editor"
+                        markdown={markdown}
+                        ref={editorRef}
+                        onChange={(e) => onChange(e)}
+                        plugins={[
+                            toolbarPlugin({
+                                toolbarContents: () => (
+                                    <DiffSourceToggleWrapper>
+                                        <UndoRedo />
+                                        <Separator />
+                                        <BoldItalicUnderlineToggles />
+                                        <Separator />
+                                        <BlockTypeSelect />
+                                        <Separator />
+                                        <ListsToggle />
+                                        <Separator />
+                                        <CreateLink />
+                                        <InsertThematicBreak />
+                                    </DiffSourceToggleWrapper>
+                                ),
+                            }),
+                            headingsPlugin(),
+                            listsPlugin(),
+                            quotePlugin(),
+                            thematicBreakPlugin(),
+                            linkPlugin(),
+                            linkDialogPlugin(),
+                            diffSourcePlugin({ viewMode: "rich-text" }),
+                            markdownShortcutPlugin(),
+                        ]}
+                    />
             </form>
         </div>
     );

@@ -15,7 +15,8 @@ export default function HeroImageEditor(props: HeroImageEditorProps) {
     const {currentImage, saveImage} = props;
     const [newImage, setNewImage] = useState<File | null>(null);
     const [newImageUrl, setNewImageUrl] = useState<string | null>(null);
-
+    const [imageRemoved, setImageRemoved] = useState(false);   
+     
     const [hasChanges, setHasChanges] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,19 +40,21 @@ export default function HeroImageEditor(props: HeroImageEditorProps) {
             }
         }
     }
-    const handleDiscardChanges = () => {
-        setNewImage(null);
-        setNewImageUrl(null);
-        setHasChanges(false);
-    }
-
     const handleRemoveImage = () => {
         setNewImage(null);
-        setNewImageUrl("");
+        setNewImageUrl(null);
+        setImageRemoved(true);
         setHasChanges(true);
     }
 
-    const displayImage = newImageUrl ?? currentImage;
+    const handleDiscardChanges = () => {
+        setNewImage(null);
+        setNewImageUrl(null);
+        setImageRemoved(false);
+        setHasChanges(false);
+    }
+
+    const displayImage = imageRemoved ? null : (newImageUrl ?? currentImage);
 
     return (
         <div>

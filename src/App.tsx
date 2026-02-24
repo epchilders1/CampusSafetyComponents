@@ -13,6 +13,7 @@ import Map from './_components/Map/Map';
 import {Toaster, toast} from "react-hot-toast"
 import type { MapShape } from './_components/Map/Map';
 import CampusNow from './pages/CampusNow/CampusNow';
+import SafetyGuidelines from './pages/SafetyGuidelines/SafetyGuidelines';
 
 import './App.css'
 
@@ -78,6 +79,12 @@ export default function App() {
     onChange: (newMarkdown: string) => console.log("New markdown:", newMarkdown)
   }
 
+  const safetyGuidelinesMarkdownInfo = {
+    headline:"Example Headline",
+    markdown: "- Safety Guidelines Page!!!",
+    onChange: (newMarkdown: string) => console.log("New markdown:", newMarkdown)
+  }
+
   const forecastOptions = {
     showTodaysForecast: true,
     show7DayForecast: true
@@ -92,7 +99,7 @@ export default function App() {
         <div className="hero-image-editor-container">
           <h2>Hero Image Editor</h2>
           <HeroImageEditor 
-            currentImage="./image.png"
+            currentImage="./CampusSafetyComponents/image.png"
             saveImage={handleSaveHeroImage}
           />
         </div>
@@ -154,6 +161,9 @@ export default function App() {
       </div>
       <div>
         <CampusNow markdownInfo={campusNowMarkdownInfo} forecastOptions={forecastOptions}/>
+      </div>
+      <div>
+        <SafetyGuidelines markdownInfo={safetyGuidelinesMarkdownInfo} heroImage="./CampusSafetyComponents/image.png"/>
       </div>
     </div>
   );

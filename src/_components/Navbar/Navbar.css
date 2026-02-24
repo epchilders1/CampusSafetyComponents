@@ -49,16 +49,17 @@
     margin: 0;
 }
 
-.sidebar-container{
-    height: 92vh;
+.sidebar-container {
+    top: 8vh;
     bottom: 0;
     position: fixed;
     background-color: #353535;
     z-index: 9998;
-    display: flex; 
-    flex-direction: column; 
+    display: flex;
+    flex-direction: column;
     align-items: flex-start;
     color: #B9B9B9;
+    overflow-y: auto;
 }
 .sidebar-container.sidebar-open {
     left: 0;

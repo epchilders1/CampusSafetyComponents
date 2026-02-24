@@ -3,6 +3,7 @@
 }
 
 .hero-image-selector {
+    min-height: 150px;
     width: 100%;
     aspect-ratio: 16 / 9;
     border-radius: 12px;
