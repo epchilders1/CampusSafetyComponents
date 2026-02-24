@@ -99,7 +99,7 @@ export default function App() {
         <div className="hero-image-editor-container">
           <h2>Hero Image Editor</h2>
           <HeroImageEditor 
-            currentImage="./CampusSafetyComponents/image.png"
+            currentImage="./image.png"
             saveImage={handleSaveHeroImage}
           />
         </div>
@@ -163,7 +163,7 @@ export default function App() {
         <CampusNow markdownInfo={campusNowMarkdownInfo} forecastOptions={forecastOptions}/>
       </div>
       <div>
-        <SafetyGuidelines markdownInfo={safetyGuidelinesMarkdownInfo} heroImage="./CampusSafetyComponents/image.png"/>
+        <SafetyGuidelines markdownInfo={safetyGuidelinesMarkdownInfo} heroImage="./image.png"/>
       </div>
     </div>
   );

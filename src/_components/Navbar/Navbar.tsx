@@ -36,7 +36,7 @@ export default function Navbar(){
             </button>
             <div className="navbar-header">
                 <img
-                    src="./CampusSafetyComponents/logo.jpg"
+                    src="./logo.jpg"
                     className="nav-logo"
                 />
                 <h1 className="title">Campus Safety</h1>
