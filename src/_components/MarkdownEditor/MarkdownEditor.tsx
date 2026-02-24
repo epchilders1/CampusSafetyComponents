@@ -10,9 +10,6 @@ import {
     markdownShortcutPlugin,
     linkPlugin,
     linkDialogPlugin,
-    codeBlockPlugin,
-    codeMirrorPlugin,
-    imagePlugin,
     diffSourcePlugin,
     toolbarPlugin,
     BoldItalicUnderlineToggles,
@@ -21,7 +18,6 @@ import {
     CreateLink,
     ListsToggle,
     InsertThematicBreak,
-    InsertImage,
     Separator,
     DiffSourceToggleWrapper,
 } from "@mdxeditor/editor";
