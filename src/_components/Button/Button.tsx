@@ -12,7 +12,7 @@ interface ButtonProps {
 }
 
 export default function Button(props: ButtonProps) {
-    const {variant, size, onClick, disabled, children, className, rounded} = props;
+    const {variant = "blue", size, onClick, disabled, children, className, rounded} = props;
     const variants: { [id: string]: string } = {
         blue: "blue-button",
         yellow: "yellow-button",

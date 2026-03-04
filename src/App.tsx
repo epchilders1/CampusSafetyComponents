@@ -14,6 +14,8 @@ import {Toaster, toast} from "react-hot-toast"
 import type { MapShape } from './_components/Map/Map';
 import CampusNow from './pages/CampusNow/CampusNow';
 import SafetyGuidelines from './pages/SafetyGuidelines/SafetyGuidelines';
+import BluePhoneUploadButton from './_components/UploadWizard/BluePhoneUploadButton';
+
 
 import './App.css'
 
@@ -143,7 +145,9 @@ export default function App() {
             Open Modal
           </Button>
           <Modal showModal={modalIsOpen} setShowModal={setModalIsOpen}> 
+            <div className="modal-content">
               <h1>Example Modal Content</h1>
+              </div>
           </Modal>
         </div>
         <div className="input-dropdown-container">
@@ -154,6 +158,9 @@ export default function App() {
               <h2>Text Area Component</h2> 
               <TextArea label="Description" placeHolder="Some text here..." lockXExpansion={true}/>
         </div>
+         <div>
+        <BluePhoneUploadButton/>
+      </div>
       </div>
       <div className="map-container">
           <h2>Map Component</h2>
@@ -165,6 +172,7 @@ export default function App() {
       <div>
         <SafetyGuidelines markdownInfo={safetyGuidelinesMarkdownInfo} heroImage="./image.png"/>
       </div>
+     
     </div>
   );
 }

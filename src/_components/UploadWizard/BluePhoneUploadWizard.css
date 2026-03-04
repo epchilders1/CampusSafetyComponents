@@ -1,0 +1,62 @@
+.bluephone-upload-container{
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    transition: all 500ms ease-in-out;
+}
+.bluephone-upload-content {
+    overflow-y: auto;
+}
+.upload-blue-phone-nav-icon{
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.upload-blue-phone-nav-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    background-color: #3b82f6;
+    color: #ffffff;
+    transition: all 200ms;
+    transform: scale(1);
+    border: none;
+}
+
+.upload-blue-phone-nav-button:hover {
+    background-color: #2563eb;
+    transform: scale(1.05);
+}
+
+.upload-blue-phone-nav-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.upload-blue-phone-step-info{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+.upload-blue-phone-nav-container {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    position: sticky;
+    bottom: 0;
+    background: rgba(249, 250, 251, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(4px);
+    padding: 1rem;
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 9999px;
+}

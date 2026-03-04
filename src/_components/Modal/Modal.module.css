@@ -29,7 +29,7 @@
     overflow-y: auto;
     max-height: 90vh;
     transform: translateZ(0);
-    border-radius: 0.75rem;
+    border-radius: 0.75rem; 
     border: 1px solid #e5e7eb;
     background-color: white;
     padding: 1.5rem;
@@ -71,7 +71,20 @@
     outline: 2px solid #3b82f6;
     outline-offset: 2px;
 }
-.modalContentDefaultWidth {
+.modalContentSmallWidth {
     width: 100%;
-    max-width: 28rem;
+    max-width: 30rem;
+}
+.modalContentMediumWidth{
+    width: 100%;
+    max-width: 60rem;
+}
+
+.modalContentLargeWidth{
+    width: 100%;
+    max-width: 80rem;
+}
+.modalContentExtraLargeWidth{
+    width: 100%;
+    max-width: 110rem;
 }

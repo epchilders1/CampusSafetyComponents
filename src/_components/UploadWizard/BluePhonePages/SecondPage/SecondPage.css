@@ -1,0 +1,406 @@
+.blue-phone-second-page-wrapper {
+}
+
+.blue-phone-second-page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.blue-phone-second-page-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.blue-phone-second-page-subtitle {
+    color: #4b5563;
+}
+
+.blue-phone-second-page-preview-card {
+    background-color: #eff6ff;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+}
+
+.blue-phone-second-page-card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.blue-phone-second-page-card-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #2563eb;
+}
+
+.blue-phone-second-page-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-left: 0.75rem;
+}
+
+.blue-phone-second-page-card-description {
+    color: #4b5563;
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+}
+
+.blue-phone-second-page-table-container {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    border: 1px solid #e5e7eb;
+    overflow-x: auto;
+}
+
+.blue-phone-second-page-table {
+    width: 100%;
+    font-size: 0.875rem;
+}
+
+.blue-phone-second-page-table-head {
+    background-color: #f9fafb;
+    position: sticky;
+    top: 0;
+}
+
+.blue-phone-second-page-table-th-index {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 500;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+    width: 3rem;
+    left: 0;
+    background-color: #f9fafb;
+    z-index: 10;
+}
+
+.blue-phone-second-page-table-th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 500;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+    min-width: 150px;
+    white-space: nowrap;
+}
+
+.blue-phone-second-page-th-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.blue-phone-second-page-th-label {
+    font-weight: 500;
+}
+
+.blue-phone-second-page-th-mapping {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.blue-phone-second-page-th-mapping-arrow {
+    width: 0.75rem;
+    height: 0.75rem;
+    color: #22c55e;
+}
+
+.blue-phone-second-page-th-mapping-label {
+    font-size: 0.75rem;
+    color: #16a34a;
+    background-color: #dcfce7;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    font-weight: 500;
+}
+
+.blue-phone-second-page-table-row-even {
+    background-color: rgba(249, 250, 251, 0.5);
+    transition: background-color 0.15s;
+}
+
+.blue-phone-second-page-table-row-even:hover {
+    background-color: #eff6ff;
+}
+
+.blue-phone-second-page-table-row-odd {
+    background-color: #ffffff;
+    transition: background-color 0.15s;
+}
+
+.blue-phone-second-page-table-row-odd:hover {
+    background-color: #eff6ff;
+}
+
+.blue-phone-second-page-table-td-index {
+    padding: 0.75rem 1rem;
+    color: #6b7280;
+    border-bottom: 1px solid #e5e7eb;
+    font-family: monospace;
+    font-size: 0.75rem;
+    left: 0;
+    background-color: inherit;
+    z-index: 10;
+}
+
+.blue-phone-second-page-table-td {
+    padding: 0.75rem 1rem;
+    color: #4b5563;
+    border-bottom: 1px solid #e5e7eb;
+    min-width: 150px;
+}
+
+.blue-phone-second-page-cell-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    white-space: nowrap;
+}
+
+.blue-phone-second-page-row-count {
+    margin-top: 0.75rem;
+    text-align: center;
+}
+
+.blue-phone-second-page-row-count-text {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.blue-phone-second-page-mapping-section {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.blue-phone-second-page-mapping-card {
+    background-color: #eff6ff;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.blue-phone-second-page-required-note {
+    color: #dc2626;
+    font-weight: 500;
+}
+
+.blue-phone-second-page-field-grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .blue-phone-second-page-field-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.blue-phone-second-page-field-card {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    border: 1px solid;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.blue-phone-second-page-field-card-error {
+    border-color: #fca5a5;
+    background-color: #fef2f2;
+}
+
+.blue-phone-second-page-field-card-valid {
+    border-color: #86efac;
+    background-color: #f0fdf4;
+}
+
+.blue-phone-second-page-field-card-unmapped {
+    border-color: #d1d5db;
+}
+
+.blue-phone-second-page-field-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.blue-phone-second-page-field-label {
+    font-weight: 500;
+    color: #374151;
+    display: flex;
+    align-items: center;
+}
+
+.blue-phone-second-page-field-required {
+    color: #ef4444;
+    margin-left: 0.25rem;
+}
+
+.blue-phone-second-page-validation-info {
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+    color: #4b5563;
+    background-color: #f9fafb;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.blue-phone-second-page-select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    color: #374151;
+    outline: none;
+}
+
+.blue-phone-second-page-select:focus {
+    ring: 2px solid #3b82f6;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.blue-phone-second-page-select-required-empty {
+    border-color: #fca5a5;
+    background-color: #fef2f2;
+}
+
+.blue-phone-second-page-select-error {
+    border-color: #fca5a5;
+    background-color: #fef2f2;
+}
+
+.blue-phone-second-page-select-valid {
+    border-color: #86efac;
+    background-color: #f0fdf4;
+}
+
+.blue-phone-second-page-select-default {
+    border-color: #d1d5db;
+}
+
+.blue-phone-second-page-field-errors {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    color: #dc2626;
+    background-color: #fef2f2;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #fecaca;
+}
+
+.blue-phone-second-page-field-errors-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.25rem;
+}
+
+.blue-phone-second-page-field-errors-icon {
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-right: 0.25rem;
+}
+
+.blue-phone-second-page-field-errors-count {
+    font-weight: 600;
+}
+
+.blue-phone-second-page-field-errors-list {
+    max-height: 5rem;
+    overflow-y: auto;
+}
+
+.blue-phone-second-page-field-error-row {
+    font-size: 0.75rem;
+}
+
+.blue-phone-second-page-field-errors-more {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.blue-phone-second-page-alerts-container {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.blue-phone-second-page-missing-alert {
+    padding: 1rem;
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 0.5rem;
+}
+
+.blue-phone-second-page-missing-alert-header {
+    display: flex;
+    align-items: center;
+}
+
+.blue-phone-second-page-missing-alert-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #ef4444;
+    margin-right: 0.5rem;
+}
+
+.blue-phone-second-page-missing-alert-title {
+    color: #b91c1c;
+    font-weight: 500;
+}
+
+.blue-phone-second-page-missing-alert-message {
+    color: #dc2626;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.blue-phone-second-page-validation-alert {
+    padding: 1rem;
+    background-color: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 0.5rem;
+}
+
+.blue-phone-second-page-validation-alert-header {
+    display: flex;
+    align-items: center;
+}
+
+.blue-phone-second-page-validation-alert-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #b91c1c;
+    margin-right: 0.5rem;
+}
+
+.blue-phone-second-page-validation-alert-title {
+    color: #c2410c;
+    font-weight: 500;
+}
+
+.blue-phone-second-page-validation-alert-message {
+    color: #ea580c;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.blue-phone-second-page-validation-icon-error {
+    width: 1rem;
+    height: 1rem;
+    color: #ef4444;
+}
+
+.blue-phone-second-page-validation-icon-valid {
+    width: 1rem;
+    height: 1rem;
+    color: #22c55e;
+}

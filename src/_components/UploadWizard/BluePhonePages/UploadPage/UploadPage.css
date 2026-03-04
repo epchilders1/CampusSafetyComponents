@@ -1,0 +1,155 @@
+.upload-page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.upload-page-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.upload-page-subtitle {
+    color: #4b5563;
+}
+
+.upload-page-card {
+    background-color: #eff6ff;
+    border: 2px solid #bfdbfe;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+}
+
+.upload-page-card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.upload-page-card-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #2563eb;
+}
+
+.upload-page-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-left: 0.75rem;
+}
+
+.upload-page-card-description {
+    color: #374151;
+    margin-bottom: 1rem;
+}
+
+.upload-page-dropzone {
+    border: 2px dashed #93c5fd;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    transition: border-color 200ms;
+}
+
+.upload-page-dropzone:hover {
+    border-color: #60a5fa;
+}
+
+.upload-page-file-input {
+    display: none;
+}
+
+.upload-page-upload-label {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-page-upload-label-loading {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0.5;
+}
+
+.upload-page-upload-icon {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 0.75rem;
+    color: #3b82f6;
+}
+
+.upload-page-upload-icon-loading {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 0.75rem;
+    color: #9ca3af;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.upload-page-upload-text {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.upload-page-file-hint {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+}
+
+.upload-page-file-name {
+    font-size: 0.875rem;
+    color: #374151;
+    background-color: #e5e7eb;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    margin-top: 0.5rem;
+}
+
+.upload-page-parsing-text {
+    font-size: 0.875rem;
+    color: #2563eb;
+    margin-top: 0.25rem;
+}
+
+.upload-page-error-container {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 0.5rem;
+}
+
+.upload-page-error-header {
+    display: flex;
+    align-items: center;
+}
+
+.upload-page-error-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #ef4444;
+    margin-right: 0.5rem;
+}
+
+.upload-page-error-title {
+    color: #b91c1c;
+    font-weight: 500;
+}
+
+.upload-page-error-message {
+    color: #dc2626;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}

@@ -12,10 +12,11 @@ interface ModalProps{
     children?: React.ReactNode;
     showModal: boolean;
     setShowModal: Function;
+    size?: string
 }
 
 export default function Modal(props: ModalProps){
-    const {children, showModal, setShowModal} = props;
+    const {children, showModal, setShowModal, size="medium"} = props;
     const modalRef = useRef(null);
     const onKeyDown = useCallback(
         (e: KeyboardEvent) => {
@@ -44,7 +45,12 @@ export default function Modal(props: ModalProps){
         document.body.style.overflow = 'unset';
         };
     }, [showModal]);
-
+    const modalSizeStyle = {
+        small: styles.modalContentSmallWidth,
+        medium: styles.modalContentMediumWidth,
+        large: styles.modalContentLargeWidth,
+        extraLarge: styles.modalContentExtraLargeWidth
+    }[size] ?? styles.modalContentMediumWidth;
     const modalContent = (
         <AnimatePresence>
             {showModal && (
@@ -88,7 +94,7 @@ export default function Modal(props: ModalProps){
                         }
                     }}
                     >
-                        <div className={`${styles.modalContent} ${styles.modalContentDefaultWidth}`}>
+                        <div className={`${styles.modalContent}  ${modalSizeStyle}`}>
                                         <button
                                             className={styles.closeButton}
                                             onClick={()=>setShowModal(false)}

@@ -8,6 +8,9 @@ interface InputProps {
     autoFocus?: boolean;
     label?: string;
     placeHolder?: string;
+    accept?: string
+    className?: string
+    disabled?: boolean
     onChange?: (value: any) => void;
 }
 
@@ -19,6 +22,9 @@ export default function Input(props: InputProps) {
         autoFocus = false,
         label, 
         placeHolder, 
+        accept,
+        className,
+        disabled = false,
         onChange} = props;
     const [inputValue, setInputValue] = useState(value || "");
 
@@ -27,6 +33,10 @@ export default function Input(props: InputProps) {
     }, [value]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (type === "file") {
+            if (onChange) onChange(e);
+            return;
+        }
         const newValue = type === "checkbox" ? e.target.checked : e.target.value;
         setInputValue(newValue);
         if (onChange) {
@@ -59,12 +69,14 @@ export default function Input(props: InputProps) {
                     id={id}
                     name={id}
                     placeholder={placeHolder}
-                    className={isCheckbox ? "input-checkbox" : "input-field peer"}
+                    className={`${isCheckbox ? "input-checkbox" : "input-field peer"} ${className}`}
                     value={type === "checkbox" ? undefined : inputValue}
                     checked={type === "checkbox" ? inputValue : undefined}
                     onChange={handleChange}
                     type={type}
+                    accept={accept}
                     autoFocus={autoFocus}
+                    disabled={disabled}
                 />
             </div>
         </div>
