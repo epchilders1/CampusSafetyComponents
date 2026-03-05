@@ -1,7 +1,5 @@
-import React from "react";
 import { FileText, Upload, AlertCircle } from "lucide-react";
 import Input from "../../../Input/Input";
-import { useState } from "react";
 
 import './UploadPage.css';
 

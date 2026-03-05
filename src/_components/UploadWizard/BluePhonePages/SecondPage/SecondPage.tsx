@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { MapPin, AlertCircle, ArrowRight, AlertTriangle, CheckCircle } from "lucide-react";
 
 import './SecondPage.css';

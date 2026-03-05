@@ -6,7 +6,6 @@ import Button from "../Button/Button";
 import UploadPage from "./BluePhonePages/UploadPage/UploadPage";
 import SecondPage from "./BluePhonePages/SecondPage/SecondPage";
 import ThirdPage from "./BluePhonePages/ThirdPage/ThirdPage";
-import FourthPage from "./BluePhonePages/FourthPage/FourthPage";
 import {toast, Toaster} from "react-hot-toast"
 
 import { parseExcel, parseCSV } from "./HelperFunctions/parse";
@@ -238,7 +237,7 @@ export default function BluePhoneUploadWizard(props: BluePhoneUploadWizardProps)
                     <Button
                         variant="large"
                         onClick={() => setActiveStep(prev => Math.min(4, prev + 1))}
-                        disabled={!file && activeStep == 1 || (activeStep === 2 && !canProceed())}
+                        disabled={!file && activeStep == 1 || (activeStep === 2 && !canProceed()) || isProcessing}
                         className="upload-blue-phone-nav-button"
                     >
                         <ChevronRight className="upload-blue-phone-nav-icon" />

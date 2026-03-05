@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import {Check} from 'lucide-react';
 
 import './StepIndicator.css';

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Users, CheckCircle, AlertTriangle, Eye } from 'lucide-react';
 
 import './ThirdPage.css';
