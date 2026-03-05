@@ -7,6 +7,7 @@ import UploadPage from "./BluePhonePages/UploadPage/UploadPage";
 import SecondPage from "./BluePhonePages/SecondPage/SecondPage";
 import ThirdPage from "./BluePhonePages/ThirdPage/ThirdPage";
 import FourthPage from "./BluePhonePages/FourthPage/FourthPage";
+import {toast, Toaster} from "react-hot-toast"
 
 import { parseExcel, parseCSV } from "./HelperFunctions/parse";
 import { BLUE_PHONE_FIELDS } from "./HelperFunctions/types";
@@ -21,10 +22,12 @@ interface ValidationError {
 
 interface BluePhoneUploadWizardProps{
     setModalSize: any
+    setShowModal: any
+    handleSubmit: any
 }
 
 export default function BluePhoneUploadWizard(props: BluePhoneUploadWizardProps){
-    const {setModalSize} = props;
+    const {setModalSize, setShowModal, handleSubmit} = props;
     const [activeStep, setActiveStep] = useState(1);
     const [fileData, setFileData] = useState<Record<string, any>[]>([]);
     const [columns, setColumns] = useState<string[]>([]);
@@ -50,6 +53,17 @@ export default function BluePhoneUploadWizard(props: BluePhoneUploadWizardProps)
         });
 
         return suggestions;
+    };
+
+    const submitFunction = (bluePhones: any[]) => {
+        try {
+            handleSubmit(bluePhones);
+            setShowModal(false);
+            toast.success("Successfully submitted blue phones!")
+        } catch (error) {
+            // console.error("Error syncing assignments:", error);
+            toast.error("Error syncing round assignments. Please try again.");
+        }
     };
 
     const handleFileUpload = (event: any) => {
@@ -173,8 +187,9 @@ export default function BluePhoneUploadWizard(props: BluePhoneUploadWizardProps)
     },[activeStep])
     return(
         <div className="bluephone-upload-container">
+            <Toaster/>
             <div className="bluephone-upload-content">
-            <StepIndicator activeStep={activeStep} totalSteps={4} />
+            <StepIndicator activeStep={activeStep} totalSteps={3} />
 
             {activeStep == 1 && (
                 <UploadPage 
@@ -199,13 +214,13 @@ export default function BluePhoneUploadWizard(props: BluePhoneUploadWizardProps)
             )}
 
             {activeStep == 3 && (
-                <ThirdPage/>
+                <ThirdPage 
+                fileData={fileData} 
+                columnMappings={columnMappings} 
+                BLUE_PHONE_FIELDS={BLUE_PHONE_FIELDS} 
+                handleSubmit={submitFunction} 
+                />
             )}
-
-            {activeStep == 4 && (
-                <FourthPage/>
-            )}
-            
             </div>
              <div className="upload-blue-phone-nav-container">
                     <Button
@@ -217,13 +232,13 @@ export default function BluePhoneUploadWizard(props: BluePhoneUploadWizardProps)
                     </Button>
 
                     <div className="upload-blue-phone-step-info">
-                        <span>Step {activeStep} of 4</span>
+                        <span>Step {activeStep} of 3</span>
                     </div>
 
                     <Button
                         variant="large"
                         onClick={() => setActiveStep(prev => Math.min(4, prev + 1))}
-                        disabled={!file && activeStep == 1}
+                        disabled={!file && activeStep == 1 || (activeStep === 2 && !canProceed())}
                         className="upload-blue-phone-nav-button"
                     >
                         <ChevronRight className="upload-blue-phone-nav-icon" />
