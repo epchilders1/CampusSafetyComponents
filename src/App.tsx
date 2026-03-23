@@ -134,7 +134,7 @@ export default function App() {
         </div>
         <div className="list-container">
           <h2>List Component</h2>
-          <List items={sampleListItems} onSelect={selectListItem} />
+          <List items={sampleListItems} onSelect={selectListItem} multiSelect={true} />
         </div>
         <div className="modal-container">
           <h2>Modal Component</h2>

@@ -113,10 +113,13 @@
     overflow: hidden;       
     text-overflow: ellipsis; 
 }
-
-.list-container .list-item:hover{
-    background-color: #585858;
-    transition: background-color 0.1s ease-in-out;
+.list-container .list-item.selected{
+    background-color: #108d0060 !important;
+    border-color: #108D00;
+    border-width: 2px;
+    border-style: solid;
+    transition: background-color 0.25s ease-in-out;
+    transition: border-color 0.3s ease-in-out;
 }
 
 .list-container .list-item .item-icon{

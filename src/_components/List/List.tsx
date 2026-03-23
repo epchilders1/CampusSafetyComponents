@@ -14,6 +14,7 @@ interface ListItem {
 interface ListProps{
     items?: ListItem[];
     onSelect?: (id: string) => void;
+    multiSelect?: boolean
 }
 
 const FILTERS = [
@@ -36,12 +37,14 @@ export default function List(props: ListProps) {
     const {
         items = [],
         onSelect = () => {},
+        multiSelect = false
     } = props;
 
     const [searchTerm, setSearchTerm] = useState("");
     const [filterDropdown, setFilterDropDown] = useState(false);
     const [activeFilter, setActiveFilter] = useState<string | null>(null);
     const [filteredItems, setFilteredItems] = useState<ListItem[]>(items);
+    const [selectedItems, setSelectedItems] = useState<ListItem[]>([]);
 
     useEffect(() => {
         const lowerSearchTerm = searchTerm.toLowerCase();
@@ -64,6 +67,25 @@ export default function List(props: ListProps) {
         setActiveFilter(activeFilter === filterId ? null : filterId);
         setFilterDropDown(false);
     };
+
+    const handleItemClick = (item:ListItem) =>{
+        if(multiSelect){
+           setSelectedItems(prevItems => {
+            const isSelected = prevItems.some(i => i.id === item.id);
+            return isSelected
+                ? prevItems.filter(i => i.id !== item.id)
+                : [item, ...prevItems];
+            });
+        }
+        else{
+            setSelectedItems([item]);
+        }
+    }
+    useEffect(() => {
+        if (selectedItems.length > 0) {
+            onSelect(selectedItems[selectedItems.length - 1].id);
+        }
+    }, [selectedItems]);
 
     return (
         <div className="list-container">
@@ -102,8 +124,8 @@ export default function List(props: ListProps) {
                 {filteredItems.map((item) => (
                     <a
                         key={item.id} 
-                        className="list-item"
-                        onClick={() => onSelect(item.id)}
+                        className={`list-item ${selectedItems.some(i=>i.id === item.id) ? `selected` : ``}`}
+                        onClick={()=>handleItemClick(item)}
                     >
                         <div className="item-icon">
                             <Landmark/>
