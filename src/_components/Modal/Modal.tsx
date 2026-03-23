@@ -12,11 +12,12 @@ interface ModalProps{
     children?: React.ReactNode;
     showModal: boolean;
     setShowModal: Function;
-    size?: string
+    size?: string;
+    darkMode?: boolean
 }
 
 export default function Modal(props: ModalProps){
-    const {children, showModal, setShowModal, size="medium"} = props;
+    const {children, showModal, setShowModal, size="medium", darkMode=false } = props;
     const modalRef = useRef(null);
     const onKeyDown = useCallback(
         (e: KeyboardEvent) => {
@@ -51,13 +52,16 @@ export default function Modal(props: ModalProps){
         large: styles.modalContentLargeWidth,
         extraLarge: styles.modalContentExtraLargeWidth
     }[size] ?? styles.modalContentMediumWidth;
+
+    const darkModeStyle = darkMode && styles.darkMode || styles.lightMode
+
     const modalContent = (
         <AnimatePresence>
             {showModal && (
                 <>
                 <motion.div
                     key="backdrop"
-                    className={styles.modalBackdrop}
+                    className={`${styles.modalBackdrop}`}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -94,7 +98,7 @@ export default function Modal(props: ModalProps){
                         }
                     }}
                     >
-                        <div className={`${styles.modalContent}  ${modalSizeStyle}`}>
+                        <div className={`${styles.modalContent} ${modalSizeStyle}  ${darkModeStyle}`}>
                                         <button
                                             className={styles.closeButton}
                                             onClick={()=>setShowModal(false)}

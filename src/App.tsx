@@ -144,7 +144,7 @@ export default function App() {
           >
             Open Modal
           </Button>
-          <Modal showModal={modalIsOpen} setShowModal={setModalIsOpen}> 
+          <Modal showModal={modalIsOpen} setShowModal={setModalIsOpen} darkMode={true}> 
             <div className="modal-content">
               <h1>Example Modal Content</h1>
               </div>

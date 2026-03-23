@@ -39,6 +39,16 @@
     color: black;
 }
 
+.lightMode {
+    color: black !important;
+    background-color: white !important;
+}
+.darkMode {
+    background-color: #2B2A32 !important;
+    color: white !important;
+    border: none;
+}
+
 
 .closeButton {
     position: absolute;
